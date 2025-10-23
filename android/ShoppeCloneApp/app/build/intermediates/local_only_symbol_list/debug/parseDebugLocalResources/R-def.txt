@@ -1,0 +1,35 @@
+R_DEF: Internal format may change without notice
+local
+color ic_launcher_background
+id btnAdd
+id btnCart
+id btnCheckout
+id btnLogin
+id btnPay
+id btnRemove
+id btnSend
+id edtEmail
+id edtPassword
+id img
+id input
+id name
+id price
+id qty
+id recycler
+id text
+id txtTotal
+layout activity_cart
+layout activity_chat
+layout activity_checkout
+layout activity_login
+layout activity_product_list
+layout row_cart_item
+layout row_chat_bot
+layout row_chat_user
+layout row_product
+mipmap ic_launcher
+mipmap ic_launcher_foreground
+mipmap ic_launcher_round
+string app_name
+style Theme.ShoppeClone
+xml network_security_config
