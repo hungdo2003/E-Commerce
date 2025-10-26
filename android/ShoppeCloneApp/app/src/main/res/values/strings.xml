@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ShoppeCloneApp</string>
+    <string name="product_image">Ảnh sản phẩm</string>
 </resources>

@@ -1,4 +1,22 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Chủ đề ứng dụng kế thừa trực tiếp từ Material3, bỏ Bridge để tránh lỗi linking -->
     <style name="Theme.ShoppeClone" parent="Theme.Material3.DayNight.NoActionBar"/>
+    <!-- Hiệu ứng trượt lên cho BottomSheet -->
+    <style name="BottomSheetDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+
+    <!-- Theme cho BottomSheetDialog -->
+    <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+        <item name="android:windowAnimationStyle">@style/BottomSheetDialogAnimation</item>
+    </style>
+
+    <!-- Style riêng cho phần thân bottom sheet -->
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_dialog_rounded</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimAmount">0.5</item>
+    </style>
 </resources>

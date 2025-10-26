@@ -8,165 +8,177 @@
 8        android:minSdkVersion="24"
 9        android:targetSdkVersion="34" />
 10
-11    <!-- INTERNET permission phải đặt ngoài <application> -->
+11    <!-- 🌐 Quyền Internet -->
 12    <uses-permission android:name="android.permission.INTERNET" />
-12-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:5:5-67
-12-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:5:22-64
+12-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:5:5-67
+12-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:5:22-64
 13
 14    <permission
-14-->[androidx.core:core:1.13.0] C:\Users\ADMIN\.gradle\caches\transforms-4\1bb18bb2f00a28ea09e6ac3edc94aca4\transformed\core-1.13.0\AndroidManifest.xml:22:5-24:47
+14-->[androidx.core:core:1.13.0] C:\Users\QuangTran\.gradle\caches\transforms-4\1bb18bb2f00a28ea09e6ac3edc94aca4\transformed\core-1.13.0\AndroidManifest.xml:22:5-24:47
 15        android:name="com.example.shoppeclone.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-15-->[androidx.core:core:1.13.0] C:\Users\ADMIN\.gradle\caches\transforms-4\1bb18bb2f00a28ea09e6ac3edc94aca4\transformed\core-1.13.0\AndroidManifest.xml:23:9-81
+15-->[androidx.core:core:1.13.0] C:\Users\QuangTran\.gradle\caches\transforms-4\1bb18bb2f00a28ea09e6ac3edc94aca4\transformed\core-1.13.0\AndroidManifest.xml:23:9-81
 16        android:protectionLevel="signature" />
-16-->[androidx.core:core:1.13.0] C:\Users\ADMIN\.gradle\caches\transforms-4\1bb18bb2f00a28ea09e6ac3edc94aca4\transformed\core-1.13.0\AndroidManifest.xml:24:9-44
+16-->[androidx.core:core:1.13.0] C:\Users\QuangTran\.gradle\caches\transforms-4\1bb18bb2f00a28ea09e6ac3edc94aca4\transformed\core-1.13.0\AndroidManifest.xml:24:9-44
 17
 18    <uses-permission android:name="com.example.shoppeclone.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-18-->[androidx.core:core:1.13.0] C:\Users\ADMIN\.gradle\caches\transforms-4\1bb18bb2f00a28ea09e6ac3edc94aca4\transformed\core-1.13.0\AndroidManifest.xml:26:5-97
-18-->[androidx.core:core:1.13.0] C:\Users\ADMIN\.gradle\caches\transforms-4\1bb18bb2f00a28ea09e6ac3edc94aca4\transformed\core-1.13.0\AndroidManifest.xml:26:22-94
+18-->[androidx.core:core:1.13.0] C:\Users\QuangTran\.gradle\caches\transforms-4\1bb18bb2f00a28ea09e6ac3edc94aca4\transformed\core-1.13.0\AndroidManifest.xml:26:5-97
+18-->[androidx.core:core:1.13.0] C:\Users\QuangTran\.gradle\caches\transforms-4\1bb18bb2f00a28ea09e6ac3edc94aca4\transformed\core-1.13.0\AndroidManifest.xml:26:22-94
 19
 20    <application
-20-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:7:5-34:19
+20-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:7:5-45:19
 21        android:allowBackup="true"
-21-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:8:9-35
+21-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:8:9-35
 22        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-22-->[androidx.core:core:1.13.0] C:\Users\ADMIN\.gradle\caches\transforms-4\1bb18bb2f00a28ea09e6ac3edc94aca4\transformed\core-1.13.0\AndroidManifest.xml:28:18-86
+22-->[androidx.core:core:1.13.0] C:\Users\QuangTran\.gradle\caches\transforms-4\1bb18bb2f00a28ea09e6ac3edc94aca4\transformed\core-1.13.0\AndroidManifest.xml:28:18-86
 23        android:debuggable="true"
 24        android:extractNativeLibs="false"
 25        android:icon="@mipmap/ic_launcher"
-25-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:12:9-43
+25-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:12:9-43
 26        android:label="ShoppeCloneApp"
-26-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:9:9-39
+26-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:9:9-39
 27        android:networkSecurityConfig="@xml/network_security_config"
-27-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:14:9-69
+27-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:14:9-69
 28        android:supportsRtl="true"
-28-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:10:9-35
+28-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:10:9-35
 29        android:testOnly="true"
 30        android:theme="@style/Theme.ShoppeClone"
-30-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:11:9-49
+30-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:11:9-49
 31        android:usesCleartextTraffic="true" >
-31-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:13:9-44
+31-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:13:9-44
 32
-33        <!-- Launcher -->
+33        <!-- 🚀 Màn hình khởi động đầu tiên (LoginActivity) -->
 34        <activity
-34-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:17:9-24:20
-35            android:name="com.example.shoppeclone.ui.ProductListActivity"
-35-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:18:13-51
+34-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:17:9-24:20
+35            android:name="com.example.shoppeclone.ui.LoginActivity"
+35-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:18:13-68
 36            android:exported="true" >
-36-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:19:13-36
+36-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:19:13-36
 37            <intent-filter>
-37-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:20:13-23:29
+37-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:20:13-23:29
 38                <action android:name="android.intent.action.MAIN" />
-38-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:21:17-69
-38-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:21:25-66
+38-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:21:17-69
+38-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:21:25-66
 39
 40                <category android:name="android.intent.category.LAUNCHER" />
-40-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:22:17-77
-40-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:22:27-74
+40-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:22:17-77
+40-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:22:27-74
 41            </intent-filter>
 42        </activity>
-43        <activity
-43-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:26:9-82
-44            android:name="com.example.shoppeclone.ui.CheckoutActivity"
-44-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:26:19-54
-45            android:exported="false" />
-45-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:26:55-79
-46        <activity
-46-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:27:9-78
-47            android:name="com.example.shoppeclone.ui.ChatActivity"
-47-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:27:19-50
-48            android:exported="false" />
-48-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:27:51-75
-49        <activity
-49-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:28:9-78
-50            android:name="com.example.shoppeclone.ui.CartActivity"
-50-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:28:19-50
-51            android:exported="false" />
-51-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:28:51-75
-52        <activity
-52-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:29:9-78
-53            android:name="com.example.shoppeclone.ui.LoginActivity"
-53-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:29:19-51
-54            android:exported="false" />
-54-->C:\Min\download\shoppe_clone_full_code\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:29:52-76
-55
-56        <!--
-57        Nếu có LoginActivity thì thêm:
-58        <activity android:name=".ui.LoginActivity" android:exported="false" />
-59        -->
-60        <provider
-60-->[androidx.emoji2:emoji2:1.3.0] C:\Users\ADMIN\.gradle\caches\transforms-4\6322a6e01cb6b680ca375f8e3b212bdb\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
-61            android:name="androidx.startup.InitializationProvider"
-61-->[androidx.emoji2:emoji2:1.3.0] C:\Users\ADMIN\.gradle\caches\transforms-4\6322a6e01cb6b680ca375f8e3b212bdb\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:25:13-67
-62            android:authorities="com.example.shoppeclone.androidx-startup"
-62-->[androidx.emoji2:emoji2:1.3.0] C:\Users\ADMIN\.gradle\caches\transforms-4\6322a6e01cb6b680ca375f8e3b212bdb\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:26:13-68
-63            android:exported="false" >
-63-->[androidx.emoji2:emoji2:1.3.0] C:\Users\ADMIN\.gradle\caches\transforms-4\6322a6e01cb6b680ca375f8e3b212bdb\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:27:13-37
-64            <meta-data
-64-->[androidx.emoji2:emoji2:1.3.0] C:\Users\ADMIN\.gradle\caches\transforms-4\6322a6e01cb6b680ca375f8e3b212bdb\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
-65                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-65-->[androidx.emoji2:emoji2:1.3.0] C:\Users\ADMIN\.gradle\caches\transforms-4\6322a6e01cb6b680ca375f8e3b212bdb\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:30:17-75
-66                android:value="androidx.startup" />
-66-->[androidx.emoji2:emoji2:1.3.0] C:\Users\ADMIN\.gradle\caches\transforms-4\6322a6e01cb6b680ca375f8e3b212bdb\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:31:17-49
-67            <meta-data
-67-->[androidx.lifecycle:lifecycle-process:2.8.6] C:\Users\ADMIN\.gradle\caches\transforms-4\6ee7fd59d6986ce904e804f4cc39ffa5\transformed\jetified-lifecycle-process-2.8.6\AndroidManifest.xml:29:13-31:52
-68                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-68-->[androidx.lifecycle:lifecycle-process:2.8.6] C:\Users\ADMIN\.gradle\caches\transforms-4\6ee7fd59d6986ce904e804f4cc39ffa5\transformed\jetified-lifecycle-process-2.8.6\AndroidManifest.xml:30:17-78
-69                android:value="androidx.startup" />
-69-->[androidx.lifecycle:lifecycle-process:2.8.6] C:\Users\ADMIN\.gradle\caches\transforms-4\6ee7fd59d6986ce904e804f4cc39ffa5\transformed\jetified-lifecycle-process-2.8.6\AndroidManifest.xml:31:17-49
+43
+44        <!-- 🏠 Màn hình chính sau khi đăng nhập -->
+45        <activity
+45-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:27:9-29:40
+46            android:name="com.example.shoppeclone.ui.MainActivity"
+46-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:28:13-67
+47            android:exported="false" />
+47-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:29:13-37
+48
+49        <!-- 🧩 Các activity phụ -->
+50        <activity
+50-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:32:9-34:40
+51            android:name="com.example.shoppeclone.ui.CheckoutActivity"
+51-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:33:13-71
+52            android:exported="false" />
+52-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:34:13-37
+53        <activity
+53-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:35:9-37:40
+54            android:name="com.example.shoppeclone.ui.ChatActivity"
+54-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:36:13-67
+55            android:exported="false" />
+55-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:37:13-37
+56        <activity
+56-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:38:9-40:40
+57            android:name="com.example.shoppeclone.ui.CartActivity"
+57-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:39:13-67
+58            android:exported="false" />
+58-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:40:13-37
+59        <activity
+59-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:41:9-43:40
+60            android:name="com.example.shoppeclone.ui.RegisterActivity"
+60-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:42:13-71
+61            android:exported="false" />
+61-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:43:13-37
+62        <activity
+62-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:44:9-87
+63            android:name="com.example.shoppeclone.ui.ProductDetailActivity"
+63-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:44:19-59
+64            android:exported="false" />
+64-->D:\PRM392\E-Commerce\android\ShoppeCloneApp\app\src\main\AndroidManifest.xml:44:60-84
+65
+66        <provider
+66-->[androidx.emoji2:emoji2:1.3.0] C:\Users\QuangTran\.gradle\caches\transforms-4\6322a6e01cb6b680ca375f8e3b212bdb\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+67            android:name="androidx.startup.InitializationProvider"
+67-->[androidx.emoji2:emoji2:1.3.0] C:\Users\QuangTran\.gradle\caches\transforms-4\6322a6e01cb6b680ca375f8e3b212bdb\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:25:13-67
+68            android:authorities="com.example.shoppeclone.androidx-startup"
+68-->[androidx.emoji2:emoji2:1.3.0] C:\Users\QuangTran\.gradle\caches\transforms-4\6322a6e01cb6b680ca375f8e3b212bdb\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:26:13-68
+69            android:exported="false" >
+69-->[androidx.emoji2:emoji2:1.3.0] C:\Users\QuangTran\.gradle\caches\transforms-4\6322a6e01cb6b680ca375f8e3b212bdb\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:27:13-37
 70            <meta-data
-70-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ADMIN\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
-71                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-71-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ADMIN\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+70-->[androidx.emoji2:emoji2:1.3.0] C:\Users\QuangTran\.gradle\caches\transforms-4\6322a6e01cb6b680ca375f8e3b212bdb\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+71                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+71-->[androidx.emoji2:emoji2:1.3.0] C:\Users\QuangTran\.gradle\caches\transforms-4\6322a6e01cb6b680ca375f8e3b212bdb\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:30:17-75
 72                android:value="androidx.startup" />
-72-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ADMIN\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
-73        </provider>
-74
-75        <receiver
-75-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ADMIN\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
-76            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-76-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ADMIN\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
-77            android:directBootAware="false"
-77-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ADMIN\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
-78            android:enabled="true"
-78-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ADMIN\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
-79            android:exported="true"
-79-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ADMIN\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
-80            android:permission="android.permission.DUMP" >
-80-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ADMIN\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
-81            <intent-filter>
-81-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ADMIN\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
-82                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-82-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ADMIN\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
-82-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ADMIN\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
-83            </intent-filter>
-84            <intent-filter>
-84-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ADMIN\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
-85                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-85-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ADMIN\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
-85-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ADMIN\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
-86            </intent-filter>
+72-->[androidx.emoji2:emoji2:1.3.0] C:\Users\QuangTran\.gradle\caches\transforms-4\6322a6e01cb6b680ca375f8e3b212bdb\transformed\jetified-emoji2-1.3.0\AndroidManifest.xml:31:17-49
+73            <meta-data
+73-->[androidx.lifecycle:lifecycle-process:2.8.6] C:\Users\QuangTran\.gradle\caches\transforms-4\6ee7fd59d6986ce904e804f4cc39ffa5\transformed\jetified-lifecycle-process-2.8.6\AndroidManifest.xml:29:13-31:52
+74                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+74-->[androidx.lifecycle:lifecycle-process:2.8.6] C:\Users\QuangTran\.gradle\caches\transforms-4\6ee7fd59d6986ce904e804f4cc39ffa5\transformed\jetified-lifecycle-process-2.8.6\AndroidManifest.xml:30:17-78
+75                android:value="androidx.startup" />
+75-->[androidx.lifecycle:lifecycle-process:2.8.6] C:\Users\QuangTran\.gradle\caches\transforms-4\6ee7fd59d6986ce904e804f4cc39ffa5\transformed\jetified-lifecycle-process-2.8.6\AndroidManifest.xml:31:17-49
+76            <meta-data
+76-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\QuangTran\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:29:13-31:52
+77                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+77-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\QuangTran\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:30:17-85
+78                android:value="androidx.startup" />
+78-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\QuangTran\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:31:17-49
+79        </provider>
+80
+81        <receiver
+81-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\QuangTran\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:34:9-52:20
+82            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+82-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\QuangTran\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:35:13-76
+83            android:directBootAware="false"
+83-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\QuangTran\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:36:13-44
+84            android:enabled="true"
+84-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\QuangTran\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:37:13-35
+85            android:exported="true"
+85-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\QuangTran\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:38:13-36
+86            android:permission="android.permission.DUMP" >
+86-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\QuangTran\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:39:13-57
 87            <intent-filter>
-87-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ADMIN\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
-88                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-88-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ADMIN\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
-88-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ADMIN\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+87-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\QuangTran\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:40:13-42:29
+88                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+88-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\QuangTran\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:17-91
+88-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\QuangTran\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:41:25-88
 89            </intent-filter>
 90            <intent-filter>
-90-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ADMIN\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
-91                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-91-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ADMIN\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
-91-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\ADMIN\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+90-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\QuangTran\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:43:13-45:29
+91                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+91-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\QuangTran\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:17-85
+91-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\QuangTran\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:44:25-82
 92            </intent-filter>
-93        </receiver>
-94
-95        <service
-95-->[androidx.room:room-runtime:2.6.1] C:\Users\ADMIN\.gradle\caches\transforms-4\b6d89bffa5f45fd4ef6928164490fbfd\transformed\room-runtime-2.6.1\AndroidManifest.xml:24:9-28:63
-96            android:name="androidx.room.MultiInstanceInvalidationService"
-96-->[androidx.room:room-runtime:2.6.1] C:\Users\ADMIN\.gradle\caches\transforms-4\b6d89bffa5f45fd4ef6928164490fbfd\transformed\room-runtime-2.6.1\AndroidManifest.xml:25:13-74
-97            android:directBootAware="true"
-97-->[androidx.room:room-runtime:2.6.1] C:\Users\ADMIN\.gradle\caches\transforms-4\b6d89bffa5f45fd4ef6928164490fbfd\transformed\room-runtime-2.6.1\AndroidManifest.xml:26:13-43
-98            android:exported="false" />
-98-->[androidx.room:room-runtime:2.6.1] C:\Users\ADMIN\.gradle\caches\transforms-4\b6d89bffa5f45fd4ef6928164490fbfd\transformed\room-runtime-2.6.1\AndroidManifest.xml:27:13-37
-99    </application>
+93            <intent-filter>
+93-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\QuangTran\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:46:13-48:29
+94                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+94-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\QuangTran\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:17-88
+94-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\QuangTran\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:47:25-85
+95            </intent-filter>
+96            <intent-filter>
+96-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\QuangTran\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:49:13-51:29
+97                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+97-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\QuangTran\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:17-95
+97-->[androidx.profileinstaller:profileinstaller:1.3.1] C:\Users\QuangTran\.gradle\caches\transforms-4\8dcc5f096d1f87e936c3c8051d6f2acd\transformed\jetified-profileinstaller-1.3.1\AndroidManifest.xml:50:25-92
+98            </intent-filter>
+99        </receiver>
 100
-101</manifest>
+101        <service
+101-->[androidx.room:room-runtime:2.6.1] C:\Users\QuangTran\.gradle\caches\transforms-4\b6d89bffa5f45fd4ef6928164490fbfd\transformed\room-runtime-2.6.1\AndroidManifest.xml:24:9-28:63
+102            android:name="androidx.room.MultiInstanceInvalidationService"
+102-->[androidx.room:room-runtime:2.6.1] C:\Users\QuangTran\.gradle\caches\transforms-4\b6d89bffa5f45fd4ef6928164490fbfd\transformed\room-runtime-2.6.1\AndroidManifest.xml:25:13-74
+103            android:directBootAware="true"
+103-->[androidx.room:room-runtime:2.6.1] C:\Users\QuangTran\.gradle\caches\transforms-4\b6d89bffa5f45fd4ef6928164490fbfd\transformed\room-runtime-2.6.1\AndroidManifest.xml:26:13-43
+104            android:exported="false" />
+104-->[androidx.room:room-runtime:2.6.1] C:\Users\QuangTran\.gradle\caches\transforms-4\b6d89bffa5f45fd4ef6928164490fbfd\transformed\room-runtime-2.6.1\AndroidManifest.xml:27:13-37
+105    </application>
+106
+107</manifest>
