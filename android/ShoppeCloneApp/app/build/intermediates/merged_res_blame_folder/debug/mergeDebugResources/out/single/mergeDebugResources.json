@@ -1,58 +1,174 @@
 [
     {
-        "merged": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-4:\\layout_row_chat_bot.xml.flat",
-        "source": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-6:\\layout\\row_chat_bot.xml"
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\drawable_bg_image_holder.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\drawable\\bg_image_holder.xml"
     },
     {
-        "merged": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-4:\\layout_activity_login.xml.flat",
-        "source": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-6:\\layout\\activity_login.xml"
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\menu_bottom_nav_menu.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\menu\\bottom_nav_menu.xml"
     },
     {
-        "merged": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-4:\\xml_network_security_config.xml.flat",
-        "source": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-6:\\xml\\network_security_config.xml"
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\layout_activity_chat.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\layout\\activity_chat.xml"
     },
     {
-        "merged": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-4:\\layout_row_product.xml.flat",
-        "source": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-6:\\layout\\row_product.xml"
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\drawable_ic_cart.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\drawable\\ic_cart.xml"
     },
     {
-        "merged": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-4:\\layout_row_cart_item.xml.flat",
-        "source": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-6:\\layout\\row_cart_item.xml"
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\drawable_bg_search_bar.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\drawable\\bg_search_bar.xml"
     },
     {
-        "merged": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-4:\\layout_activity_product_list.xml.flat",
-        "source": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-6:\\layout\\activity_product_list.xml"
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\mipmap-anydpi-v26\\ic_launcher.xml"
     },
     {
-        "merged": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-4:\\layout_activity_checkout.xml.flat",
-        "source": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-6:\\layout\\activity_checkout.xml"
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\drawable_bg_dialog_rounded.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\drawable\\bg_dialog_rounded.xml"
     },
     {
-        "merged": "com.example.shoppeclone.app-debug-4:/layout_activity_checkout.xml.flat",
-        "source": "com.example.shoppeclone.app-main-6:/layout/activity_checkout.xml"
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\drawable_bg_avatar_circle.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\drawable\\bg_avatar_circle.xml"
     },
     {
-        "merged": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-4:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-6:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\layout_activity_product_detail.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\layout\\activity_product_detail.xml"
     },
     {
-        "merged": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-4:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-6:\\mipmap-anydpi-v26\\ic_launcher.xml"
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\drawable_ic_user_black_24dp.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\drawable\\ic_user_black_24dp.xml"
     },
     {
-        "merged": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-4:\\layout_row_chat_user.xml.flat",
-        "source": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-6:\\layout\\row_chat_user.xml"
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\layout_activity_register.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\layout\\activity_register.xml"
     },
     {
-        "merged": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-4:\\layout_activity_chat.xml.flat",
-        "source": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-6:\\layout\\activity_chat.xml"
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\anim_slide_up.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\anim\\slide_up.xml"
     },
     {
-        "merged": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-4:\\mipmap-anydpi-v26_ic_launcher_foreground.xml.flat",
-        "source": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-6:\\mipmap-anydpi-v26\\ic_launcher_foreground.xml"
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\drawable_bg_input.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\drawable\\bg_input.xml"
     },
     {
-        "merged": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-4:\\layout_activity_cart.xml.flat",
-        "source": "C:\\Users\\ADMIN\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-6:\\layout\\activity_cart.xml"
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\drawable_bg_btn_gradient.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\drawable\\bg_btn_gradient.xml"
+    },
+    {
+        "merged": "com.example.shoppeclone.app-debug-37:/layout_fragment_profile.xml.flat",
+        "source": "com.example.shoppeclone.app-main-39:/layout/fragment_profile.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\drawable_ic_back.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\drawable\\ic_back.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\layout_activity_login.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\layout\\activity_login.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\drawable_ic_placeholder.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\drawable\\ic_placeholder.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\drawable_ic_delete.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\drawable\\ic_delete.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\drawable_ic_user.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\drawable\\ic_user.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\layout_activity_checkout.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\layout\\activity_checkout.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\layout_fragment_home.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\layout\\fragment_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\drawable_ic_home_black_24dp.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\drawable\\ic_home_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\drawable_bg_gradient.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\drawable\\bg_gradient.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\layout_row_chat_bot.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\layout\\row_chat_bot.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\drawable_bg_circle_transparent.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\drawable\\bg_circle_transparent.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\layout_fragment_profile.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\layout\\fragment_profile.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\layout_row_product.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\layout\\row_product.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\layout_row_cart_item.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\layout\\row_cart_item.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\drawable_ic_search.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\drawable\\ic_search.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\drawable_bg_quantity_btn.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\drawable\\bg_quantity_btn.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\drawable_ic_minus.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\drawable\\ic_minus.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\drawable_bg_quantity_box.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\drawable\\bg_quantity_box.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\layout_activity_cart.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\layout\\activity_cart.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\layout_row_chat_user.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\layout\\row_chat_user.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\drawable_ic_product_black_24dp.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\drawable\\ic_product_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\layout_sheet_add_to_cart.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\layout\\sheet_add_to_cart.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\xml_network_security_config.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\xml\\network_security_config.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\layout_fragment_product_list.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\layout\\fragment_product_list.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\drawable_ic_plus.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\drawable\\ic_plus.xml"
+    },
+    {
+        "merged": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-debug-37:\\mipmap-anydpi-v26_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\QuangTran\\.gradle\\daemon\\8.7\\com.example.shoppeclone.app-main-39:\\mipmap-anydpi-v26\\ic_launcher_foreground.xml"
     }
 ]

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9FAFB">
+
+    <!-- 🔹 Thanh tìm kiếm + Giỏ hàng -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:gravity="center_vertical"
+        android:background="#7C3AED">
+
+        <!-- Ô tìm kiếm -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_search_bar"
+            android:paddingHorizontal="12dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_search"
+                android:tint="#9CA3AF"
+                android:contentDescription="search icon" />
+
+            <EditText
+                android:id="@+id/edtSearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Tìm kiếm sản phẩm..."
+                android:background="@null"
+                android:paddingStart="8dp"
+                android:textColor="#111827"
+                android:textColorHint="#9CA3AF"
+                android:singleLine="true"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- 🛒 Icon giỏ hàng -->
+        <ImageView
+            android:id="@+id/imgCart"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="12dp"
+            android:src="@drawable/ic_cart"
+            android:background="@drawable/bg_avatar_circle"
+            android:padding="8dp"
+            android:tint="#FFFFFF"
+            android:contentDescription="cart icon" />
+    </LinearLayout>
+
+    <!-- 🔹 Danh sách sản phẩm -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        android:clipToPadding="false"
+        android:scrollbars="vertical" />
+
+</LinearLayout>

@@ -8,7 +8,7 @@
         android:minSdkVersion="24"
         android:targetSdkVersion="34" />
 
-    <!-- INTERNET permission phải đặt ngoài <application> -->
+    <!-- 🌐 Quyền Internet -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <permission
@@ -30,9 +30,9 @@
         android:theme="@style/Theme.ShoppeClone"
         android:usesCleartextTraffic="true" >
 
-        <!-- Launcher -->
+        <!-- 🚀 Màn hình khởi động đầu tiên (LoginActivity) -->
         <activity
-            android:name="com.example.shoppeclone.ui.ProductListActivity"
+            android:name="com.example.shoppeclone.ui.LoginActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,6 +40,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- 🏠 Màn hình chính sau khi đăng nhập -->
+        <activity
+            android:name="com.example.shoppeclone.ui.MainActivity"
+            android:exported="false" />
+
+        <!-- 🧩 Các activity phụ -->
         <activity
             android:name="com.example.shoppeclone.ui.CheckoutActivity"
             android:exported="false" />
@@ -50,13 +57,12 @@
             android:name="com.example.shoppeclone.ui.CartActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.shoppeclone.ui.LoginActivity"
+            android:name="com.example.shoppeclone.ui.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.shoppeclone.ui.ProductDetailActivity"
             android:exported="false" />
 
-        <!--
-        Nếu có LoginActivity thì thêm:
-        <activity android:name=".ui.LoginActivity" android:exported="false" />
-        -->
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="com.example.shoppeclone.androidx-startup"

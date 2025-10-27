@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.shoppeclone.app-mergeDebugResources-2:/values-hdpi-v4/values-hdpi-v4.xml",
+            "outputFile": "com.example.shoppeclone.app-mergeDebugResources-35:/values-hdpi-v4/values-hdpi-v4.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\ADMIN\\.gradle\\caches\\transforms-4\\f6343da0c8910c591c056125655f815c\\transformed\\appcompat-1.7.0\\res\\values-hdpi-v4\\values-hdpi-v4.xml",
+                    "source": "C:\\Users\\QuangTran\\.gradle\\caches\\transforms-4\\f6343da0c8910c591c056125655f815c\\transformed\\appcompat-1.7.0\\res\\values-hdpi-v4\\values-hdpi-v4.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

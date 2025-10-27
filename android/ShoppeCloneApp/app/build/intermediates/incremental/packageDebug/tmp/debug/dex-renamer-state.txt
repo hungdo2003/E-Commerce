@@ -1,19 +1,22 @@
-#Thu Oct 23 11:32:04 ICT 2025
-base.0=C\:\\Min\\download\\shoppe_clone_full_code\\android\\ShoppeCloneApp\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
-base.1=C\:\\Min\\download\\shoppe_clone_full_code\\android\\ShoppeCloneApp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
-base.2=C\:\\Min\\download\\shoppe_clone_full_code\\android\\ShoppeCloneApp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\10\\classes.dex
-base.3=C\:\\Min\\download\\shoppe_clone_full_code\\android\\ShoppeCloneApp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\12\\classes.dex
-base.4=C\:\\Min\\download\\shoppe_clone_full_code\\android\\ShoppeCloneApp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\13\\classes.dex
-base.5=C\:\\Min\\download\\shoppe_clone_full_code\\android\\ShoppeCloneApp\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
+#Sun Oct 26 06:59:20 ICT 2025
+base.0=D\:\\PRM392\\E-Commerce\\android\\ShoppeCloneApp\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+base.1=D\:\\PRM392\\E-Commerce\\android\\ShoppeCloneApp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+base.2=D\:\\PRM392\\E-Commerce\\android\\ShoppeCloneApp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\10\\classes.dex
+base.3=D\:\\PRM392\\E-Commerce\\android\\ShoppeCloneApp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\12\\classes.dex
+base.4=D\:\\PRM392\\E-Commerce\\android\\ShoppeCloneApp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\13\\classes.dex
+base.5=D\:\\PRM392\\E-Commerce\\android\\ShoppeCloneApp\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
+base.6=D\:\\PRM392\\E-Commerce\\android\\ShoppeCloneApp\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\8\\classes.dex
 path.0=classes.dex
 path.1=0/classes.dex
 path.2=10/classes.dex
 path.3=12/classes.dex
 path.4=13/classes.dex
 path.5=classes2.dex
+path.6=8/classes.dex
 renamed.0=classes.dex
 renamed.1=classes2.dex
 renamed.2=classes3.dex
 renamed.3=classes4.dex
 renamed.4=classes5.dex
 renamed.5=classes6.dex
+renamed.6=classes7.dex
