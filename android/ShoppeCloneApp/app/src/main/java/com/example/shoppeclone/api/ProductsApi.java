@@ -13,5 +13,6 @@ public interface ProductsApi {
                              @Query("categoryId") Integer categoryId);
 
     @GET("api/Products/{id}")
-    Call<ProductItem> getById(@Path("id") int id);
+    Call<Product> getById(@Path("id") int id);
+
 }
