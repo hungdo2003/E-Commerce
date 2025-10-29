@@ -4,12 +4,22 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ShoppeClone.Api.Infrastructure;
 using System.Text;
+using ShoppeClone.Api.Application.AI.Clients;
+using ShoppeClone.Api.Application.AI.Interfaces;
+using ShoppeClone.Api.Application.AI.Services;
+using ShoppeClone.Api.Infrastructure.Repositories;
+
+using FluentValidation;                        
+using FluentValidation.AspNetCore;            
+using Polly;                                   
+using Polly.Extensions.Http;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // DbContext
 builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
 
 // MVC + CORS
 builder.Services.AddControllers();
@@ -82,6 +92,32 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+
+
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<RagChatRequestValidator>();
+
+// Options
+builder.Services.Configure<GoogleAiOptions>(builder.Configuration.GetSection("GoogleAI"));
+
+// Typed HttpClient (base URL + retry)
+builder.Services.AddHttpClient<GeminiClient>(c =>
+{
+    c.BaseAddress = new Uri("https://generativelanguage.googleapis.com/");
+    c.Timeout = TimeSpan.FromSeconds(60);
+})
+.AddPolicyHandler(Polly.Extensions.Http.HttpPolicyExtensions
+    .HandleTransientHttpError()
+    .WaitAndRetryAsync(new[]
+    {
+        TimeSpan.FromMilliseconds(200),
+        TimeSpan.FromMilliseconds(500),
+        TimeSpan.FromSeconds(1)
+    }));
+    
+builder.Services.AddScoped<IEmbeddingService, EmbeddingService>();
+builder.Services.AddScoped<IKbRepository, KbRepository>();
+builder.Services.AddScoped<IRagService, RagService>();
 
 builder.Services.AddHttpClient();
 
