@@ -24,9 +24,12 @@
         </activity>
 
         <activity android:name=".ui.CheckoutActivity" android:exported="false" />
-        <activity android:name=".ui.ChatActivity" android:exported="false" />
+
         <activity android:name=".ui.CartActivity" android:exported="false" />
         <activity android:name=".ui.LoginActivity" android:exported="false"/>
+        <activity
+    android:name=".ui.ChatTestActivity"
+    android:exported="false" />
 
         <!-- Nếu có LoginActivity thì thêm:
         <activity android:name=".ui.LoginActivity" android:exported="false" />

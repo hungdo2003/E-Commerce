@@ -73,4 +73,19 @@ public class CartActivity extends AppCompatActivity {
             }
         });
     }
+
+    private GlobalChatOverlay chatOverlay;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (chatOverlay == null) chatOverlay = new GlobalChatOverlay(this);
+        chatOverlay.attach();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (chatOverlay != null) chatOverlay.detach();
+    }
 }

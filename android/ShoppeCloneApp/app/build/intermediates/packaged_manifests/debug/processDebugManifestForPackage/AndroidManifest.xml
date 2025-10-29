@@ -44,13 +44,13 @@
             android:name="com.example.shoppeclone.ui.CheckoutActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.shoppeclone.ui.ChatActivity"
-            android:exported="false" />
-        <activity
             android:name="com.example.shoppeclone.ui.CartActivity"
             android:exported="false" />
         <activity
             android:name="com.example.shoppeclone.ui.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.example.shoppeclone.ui.ChatTestActivity"
             android:exported="false" />
 
         <!--
