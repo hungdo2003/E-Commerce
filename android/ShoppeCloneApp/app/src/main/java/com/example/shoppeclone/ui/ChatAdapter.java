@@ -22,11 +22,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.VH> {
         View v = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
         return new VH(v);
     }
-    @Override public void onBindViewHolder(@NonNull VH h, int i) { h.text.setText(data.get(i).text); }
+    @Override public void onBindViewHolder(@NonNull VH h, int i) { h.text.setText(data.get(i).text);
+    }
     @Override public int getItemCount(){ return data.size(); }
     @Override public int getItemViewType(int position){ return data.get(position).bot?1:0; }
+
     static class VH extends RecyclerView.ViewHolder {
         TextView text;
-        VH(View v){ super(v); text=v.findViewById(R.id.text); }
+        VH(View v){ super(v); text = v.findViewById(R.id.tvUserText); }
     }
+
 }

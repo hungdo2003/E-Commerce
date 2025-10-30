@@ -1,0 +1,30 @@
+# --- IDE Settings (VS Code, Android Studio, Rider) ---
+# Tệp do IDE tự động tạo
+*.csproj.user
+*.sln.docstates
+*.suo
+.idea/
+.vs/
+
+# --- .NET (Backend) ---
+# Thư mục build
+/backend/ShoppeClone.Api/bin/
+/backend/ShoppeClone.Api/obj/
+
+# --- Android ---
+# Thư mục build
+/android/ShoppeCloneApp/build/
+/android/ShoppeCloneApp/app/build/
+
+# Tệp APK
+*.apk
+*.aab
+
+# Tệp package-lock.json của Android (nếu có trong thư mục con)
+# (Chúng ta giữ lại package-lock.json ở gốc)
+android/**/package-lock.json
+backend/**/package-lock.json
+
+# --- Tệp hệ thống ---
+.DS_Store
+Thumbs.db

@@ -56,4 +56,18 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.frame_container, fragment)
                 .commit();
     }
+
+    private GlobalChatOverlay chatOverlay;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (chatOverlay == null) chatOverlay = new GlobalChatOverlay(this);
+        chatOverlay.attach();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (chatOverlay != null) chatOverlay.detach();
+    }
 }
