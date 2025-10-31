@@ -4,10 +4,10 @@
     android:id="@+id/cardProduct"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="6dp"
+    android:layout_margin="4dp"
     android:foreground="?attr/selectableItemBackground"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
     android:clickable="true"
     android:focusable="true">
 
@@ -15,42 +15,170 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="8dp"
         android:background="#FFFFFF">
 
-        <!-- 🖼 Ảnh sản phẩm -->
-        <ImageView
-            android:id="@+id/img"
+        <!-- 🖼 Container ảnh sản phẩm với badge -->
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:scaleType="centerCrop"
-            android:background="#F3F4F6"
-            android:contentDescription="Ảnh sản phẩm"
-            android:layout_marginBottom="8dp" />
+            android:layout_height="180dp">
 
-        <!-- 📦 Tên sản phẩm -->
-        <TextView
-            android:id="@+id/name"
+            <ImageView
+                android:id="@+id/img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:background="#F9FAFB"
+                android:contentDescription="Ảnh sản phẩm" />
+
+            <!-- Badge SALE góc trên trái -->
+            <TextView
+                android:id="@+id/badgeSale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|top"
+                android:layout_margin="8dp"
+                android:background="#EF4444"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:text="SALE"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <!-- Icon yêu thích góc trên phải -->
+            <ImageView
+                android:id="@+id/iconFavorite"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="end|top"
+                android:layout_margin="8dp"
+                android:background="@android:color/white"
+                android:padding="6dp"
+                android:src="@android:drawable/btn_star_big_off"
+                android:alpha="0.7"
+                android:visibility="gone"
+                android:contentDescription="Favorite" />
+        </FrameLayout>
+
+        <!-- Thông tin sản phẩm -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tên sản phẩm"
-            android:textColor="#111827"
-            android:textSize="15sp"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:fontFamily="sans-serif-medium"
-            android:layout_marginBottom="4dp" />
+            android:orientation="vertical"
+            android:padding="8dp">
 
-        <!-- 💰 Giá -->
-        <TextView
-            android:id="@+id/price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="150.000₫"
-            android:textColor="#E11D48"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            android:layout_marginBottom="4dp" />
+            <!-- 📦 Tên sản phẩm -->
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tên sản phẩm"
+                android:textColor="#1F2937"
+                android:textSize="13sp"
+                android:maxLines="2"
+                android:minLines="2"
+                android:ellipsize="end"
+                android:lineSpacingExtra="2dp"
+                android:layout_marginBottom="6dp" />
+
+            <!-- 💰 Giá và Giá gốc -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="₫150.000"
+                    android:textColor="#EE4D2D"
+                    android:textStyle="bold"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/originalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:text="₫200.000"
+                    android:textColor="#9CA3AF"
+                    android:textSize="11sp"
+                    android:textStyle="italic"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <!-- ⭐ Rating và Đã bán -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <!-- Rating -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginEnd="8dp">
+
+                    <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:src="@android:drawable/btn_star"
+                        android:tint="#FFA500"
+                        android:contentDescription="Star" />
+
+                    <TextView
+                        android:id="@+id/rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:text="4.8"
+                        android:textColor="#6B7280"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="12dp"
+                    android:background="#E5E7EB"
+                    android:layout_marginEnd="8dp" />
+
+                <!-- Đã bán -->
+                <TextView
+                    android:id="@+id/sold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đã bán 999+"
+                    android:textColor="#6B7280"
+                    android:textSize="11sp" />
+
+                <!-- Spacer -->
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <!-- Stock indicator -->
+                <TextView
+                    android:id="@+id/stock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Còn 50"
+                    android:textColor="#10B981"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
