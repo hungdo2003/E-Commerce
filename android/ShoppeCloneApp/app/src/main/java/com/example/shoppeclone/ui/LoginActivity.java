@@ -72,7 +72,10 @@ public class LoginActivity extends AppCompatActivity {
                 public void onFailure(Call<LoginResponse> call, Throwable t) {
                     Toast.makeText(LoginActivity.this, "Lỗi mạng: " + t.getMessage(), Toast.LENGTH_LONG).show();
                 }
+
+
             });
+
         });
 
         // 🔹 Xử lý khi bấm "Chưa có tài khoản? Đăng ký ngay"
@@ -82,4 +85,7 @@ public class LoginActivity extends AppCompatActivity {
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out); // hiệu ứng mượt
         });
     }
+
+
 }
+
