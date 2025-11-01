@@ -11,5 +11,6 @@
     <color name="userTextOn">#FFFFFF</color>
     <color name="tldrBg">#D1FAE5</color>
     <color name="tldrStroke">#34D399</color>
+    <color name="vnpay_blue">#0D47A1</color>
 
 </resources>

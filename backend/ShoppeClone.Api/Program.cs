@@ -119,6 +119,9 @@ builder.Services.AddScoped<IEmbeddingService, EmbeddingService>();
 builder.Services.AddScoped<IKbRepository, KbRepository>();
 builder.Services.AddScoped<IRagService, RagService>();
 
+// VNPay Service
+builder.Services.AddScoped<ShoppeClone.Api.Application.Payment.VNPayService>();
+
 builder.Services.AddHttpClient();
 
 var app = builder.Build();

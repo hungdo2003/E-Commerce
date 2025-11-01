@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
     // ĐỔI PORT này thành port BE của bạn (ví dụ: 54813)
-    public static final String BASE_URL = "http://10.0.2.2:5080/";
+    private static final String BASE_URL = "https://8f0a51ee28a5.ngrok-free.app/";
 
     private static Retrofit retrofit;
 

@@ -12,8 +12,8 @@ using ShoppeClone.Api.Infrastructure;
 namespace ShoppeClone.Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251026072600_AddKbChunksTable")]
-    partial class AddKbChunksTable
+    [Migration("20251031064411_SeedRealProductsData")]
+    partial class SeedRealProductsData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

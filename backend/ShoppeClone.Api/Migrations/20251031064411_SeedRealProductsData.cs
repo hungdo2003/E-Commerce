@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ShoppeClone.Api.Migrations
 {
     /// <inheritdoc />
-    public partial class AddKbChunksTable : Migration
+    public partial class SeedRealProductsData : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
