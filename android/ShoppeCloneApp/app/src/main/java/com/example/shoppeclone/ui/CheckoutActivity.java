@@ -96,16 +96,11 @@ public class CheckoutActivity extends AppCompatActivity {
     }
 
     private void requestVNPay(CreateOrderResponse order) {
-        Log.d("VNPay", "Calling VNPay API for order: " + order.orderId);
-
+        // 🔥 SỬA: Gọi đúng endpoint với orderId trong path
         vnPayApi.createPayment(order.orderId).enqueue(new Callback<VNPayResponse>() {
             @Override
             public void onResponse(Call<VNPayResponse> call, Response<VNPayResponse> response) {
-                Log.d("VNPay", "Response code: " + response.code());
-                Log.d("VNPay", "Response body: " + response.body());
-
-                if (!response.isSuccessful()) {
-                    Log.e("VNPay", "Error body: " + response.errorBody());
+                if (!response.isSuccessful() || response.body() == null) {
                     Toast.makeText(CheckoutActivity.this,
                             "Gọi VNPay thất bại: HTTP " + response.code(),
                             Toast.LENGTH_LONG).show();
