@@ -8,13 +8,19 @@ using ShoppeClone.Api.Application.AI.Clients;
 using ShoppeClone.Api.Application.AI.Interfaces;
 using ShoppeClone.Api.Application.AI.Services;
 using ShoppeClone.Api.Infrastructure.Repositories;
+using ShoppeClone.Api.Application.Payment;
+using Microsoft.AspNetCore.Mvc;
 
-using FluentValidation;                        
-using FluentValidation.AspNetCore;            
-using Polly;                                   
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Polly;
 using Polly.Extensions.Http;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
 
 // DbContext
 builder.Services.AddDbContext<AppDbContext>(opt =>
@@ -114,16 +120,27 @@ builder.Services.AddHttpClient<GeminiClient>(c =>
         TimeSpan.FromMilliseconds(500),
         TimeSpan.FromSeconds(1)
     }));
-    
+
 builder.Services.AddScoped<IEmbeddingService, EmbeddingService>();
 builder.Services.AddScoped<IKbRepository, KbRepository>();
 builder.Services.AddScoped<IRagService, RagService>();
 
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("mobile", p => p
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .WithOrigins(
+            "http://localhost:3000", // React web
+            "http://localhost:3001",
+            "exp://*", // Expo
+            "http://*", // Mobile app
+            "https://*" // Mobile app HTTPS
+        ));
+});
+
 // VNPay Service
-builder.Services.AddScoped<ShoppeClone.Api.Application.Payment.VNPayService>();
-
-builder.Services.AddHttpClient();
-
+builder.Services.AddScoped<IVnPayService, VnPayService>();
 var app = builder.Build();
 
 // Swagger

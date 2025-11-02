@@ -8,8 +8,10 @@ namespace ShoppeClone.Api.Application.Payment
     {
         public static string UrlEncodeRFC3986(string value)
         {
-            var enc = HttpUtility.UrlEncode(value ?? string.Empty, Encoding.UTF8);
-            return enc?.Replace("+", "%20").Replace("*", "%2A").Replace("%7E", "~");
+            if (string.IsNullOrEmpty(value)) return string.Empty;
+
+            var enc = HttpUtility.UrlEncode(value, Encoding.UTF8);
+            return enc?.Replace("+", "%20").Replace("*", "%2A").Replace("%7E", "~") ?? string.Empty;
         }
 
         public static string HmacSHA512(string key, string data)

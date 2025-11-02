@@ -28,10 +28,23 @@
             android:name="com.example.shoppeclone.ui.MainActivity"
             android:exported="false" />
 
-        <!-- 🧩 Các activity phụ -->
+        <!-- 💳 CheckoutActivity với Deep Link cho VNPay callback -->
         <activity
-            android:name="com.example.shoppeclone.ui.CheckoutActivity"
-            android:exported="false" />
+            android:name=".ui.CheckoutActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Xử lý custom scheme -->
+                <data android:scheme="shoppeclone" android:host="vnpay-return" />
+                <!-- Xử lý ngrok redirect -->
+                <data android:scheme="https" android:host="moira-subjugular-anna.ngrok-free.dev"
+                    android:pathPrefix="/api/VNPay/return" />
+            </intent-filter>
+        </activity>
+
+        <!-- 🧩 Các activity phụ -->
         <activity
             android:name="com.example.shoppeclone.ui.ChatActivity"
             android:exported="false" />
@@ -42,7 +55,6 @@
             android:name="com.example.shoppeclone.ui.RegisterActivity"
             android:exported="false" />
         <activity android:name=".ui.ProductDetailActivity" android:exported="false" />
-
         <activity
             android:name=".ui.ChatTestActivity"
             android:exported="false" />

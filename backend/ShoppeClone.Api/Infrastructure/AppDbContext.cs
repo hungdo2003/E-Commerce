@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ShoppeClone.Api.Domain.Entities;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion; 
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace ShoppeClone.Api.Infrastructure
 {
@@ -21,27 +22,36 @@ namespace ShoppeClone.Api.Infrastructure
             b.Entity<CartItem>().HasIndex(x => new { x.UserId, x.ProductId }).IsUnique();
             b.Entity<OrderItem>().HasOne(x => x.Product).WithMany().HasForeignKey(x => x.ProductId);
             b.Entity<OrderItem>().HasOne(x => x.Order).WithMany(o => o.Items).HasForeignKey(x => x.OrderId);
-            
-// ===== KbChunk
+
+            // FIX DECIMAL PRECISION WARNINGS
+            b.Entity<Order>()
+                .Property(o => o.TotalAmount)
+                .HasPrecision(18, 2); // TotalAmount với 18 chữ số, 2 số thập phân
+
+            b.Entity<OrderItem>()
+                .Property(oi => oi.UnitPrice)
+                .HasPrecision(18, 2); // UnitPrice với 18 chữ số, 2 số thập phân
+
+            b.Entity<Product>()
+                .Property(p => p.Price)
+                .HasPrecision(18, 2); // Price với 18 chữ số, 2 số thập phân
+
+            // FIX EMBEDDING VALUE COMPARER WARNING
             b.Entity<KbChunk>()
-             .HasIndex(x => x.Sha256)
-             .IsUnique();
+                .Property(k => k.Embedding)
+                .HasConversion(
+                    v => FloatArrayToBytes(v),
+                    v => BytesToFloatArray(v)
+                )
+                .Metadata.SetValueComparer(new ValueComparer<float[]>(
+                    (c1, c2) => c1.SequenceEqual(c2),
+                    c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
+                    c => c.ToArray()
+                ));
 
-            // Dùng converter với kiểu nullable và expression trỏ tới hàm static
-            var floatArrayToBytes = new ValueConverter<float[]?, byte[]?>(
-                v => FloatArrayToBytes(v),
-                v => BytesToFloatArray(v)
-            );
-
-            b.Entity<KbChunk>(e =>
-            {
-                e.Property(p => p.Embedding)
-                 .HasConversion(floatArrayToBytes)    // <- hết lỗi CS0834 & CS8620
-                 .HasColumnType("varbinary(max)");
-
-                e.Property(p => p.Text)
-                 .HasColumnType("nvarchar(max)");
-            });
+            b.Entity<KbChunk>()
+                .HasIndex(x => x.Sha256)
+                .IsUnique();
 
             base.OnModelCreating(b);
         }

@@ -2,244 +2,207 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShoppeClone.Api.Application.Payment;
+using ShoppeClone.Api.Domain.Entities;
 using ShoppeClone.Api.Infrastructure;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace ShoppeClone.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
     public class VNPayController : ControllerBase
     {
         private readonly AppDbContext _db;
-        private readonly VNPayService _vnPayService;
+        private readonly IVnPayService _vnPayService;
 
-        public VNPayController(AppDbContext db, VNPayService vnPayService)
+        public VNPayController(AppDbContext db, IVnPayService vnPayService)
         {
             _db = db;
             _vnPayService = vnPayService;
         }
 
-        /// <summary>
-        /// Test endpoint để debug VNPay URL (không cần auth)
-        /// </summary>
-        [HttpGet("test")]
-        [AllowAnonymous]
-        public IActionResult TestVNPay()
+        // TẠM THỜI: Method không cần user id
+        private bool TryGetUserId(out int uid)
         {
-            try
-            {
-                var ipAddress = HttpContext.Connection.RemoteIpAddress?
-                     .MapToIPv4().ToString() ?? "127.0.0.1";
-
-                string paymentUrl = _vnPayService.CreatePaymentUrl(
-                    orderId: 99999,
-                    amount: 100000,
-                    orderInfo: "Test thanh toan",
-                    ipAddress: ipAddress
-                );
-
-                return Ok(new
-                {
-                    Success = true,
-                    PaymentUrl = paymentUrl,
-                    Message = "URL test được tạo thành công. Kiểm tra URL này trên VNPay sandbox.",
-                    Note = "Nếu không mở được, kiểm tra ReturnUrl trong appsettings.json phải là URL public (không phải localhost)"
-                });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { Success = false, Message = $"Lỗi: {ex.Message}" });
-            }
+            uid = 1; // User id mặc định
+            return true;
         }
 
-        /// <summary>
-        /// Tạo payment URL VNPay
-        /// </summary>
-        [HttpPost("create")]
-        public async Task<IActionResult> CreatePayment([FromBody] VNPayRequestDto request)
+        [HttpPost("{orderId}/pay-with-vnpay")] // ✅ Đã sửa thành POST
+        public async Task<IActionResult> PayWithVnPay(int orderId)
         {
-            try
+            if (!TryGetUserId(out var uid)) // ✅ Biến 'uid' được khai báo ở đây
+                return Unauthorized("Invalid or missing user id claim");
+
+            var order = await _db.Orders
+                .FirstOrDefaultAsync(o => o.Id == orderId && o.UserId == uid); // ✅ Giờ 'uid' đã tồn tại
+
+            if (order == null)
+                return NotFound("Order not found");
+
+            if (order.Status != "Pending")
+                return BadRequest("Order already processed");
+
+            var ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "127.0.0.1";
+            var paymentUrl = _vnPayService.CreatePaymentUrl(order, ipAddress);
+
+            // Thêm log để debug
+            Console.WriteLine($"=== VNPay Payment Request ===");
+            Console.WriteLine($"OrderId: {orderId}, UserId: {uid}");
+            Console.WriteLine($"Order found: {order != null}");
+            if (order != null)
             {
-                // Lấy thông tin order
-                var order = await _db.Orders.FindAsync(request.OrderId);
-                if (order == null)
-                {
-                    return NotFound(new VNPayResponseDto
-                    {
-                        Success = false,
-                        Message = "Không tìm thấy đơn hàng"
-                    });
-                }
-
-                // Lấy IP address của client
-                var ipAddress = HttpContext.Connection.RemoteIpAddress?
-                     .MapToIPv4().ToString() ?? "127.0.0.1";
-
-
-
-                // Tạo payment URL
-                string paymentUrl = _vnPayService.CreatePaymentUrl(
-                    orderId: order.Id,
-                    amount: order.TotalAmount,
-                    orderInfo: request.Description,
-                    ipAddress: ipAddress
-                );
-
-                return Ok(new VNPayResponseDto
-                {
-                    Success = true,
-                    PaymentUrl = paymentUrl,
-                    Message = "Tạo link thanh toán thành công"
-                });
+                Console.WriteLine($"Order Status: {order.Status}, Amount: {order.TotalAmount}");
             }
-            catch (Exception ex)
-            {
-                return BadRequest(new VNPayResponseDto
-                {
-                    Success = false,
-                    Message = $"Lỗi: {ex.Message}"
-                });
-            }
+            Console.WriteLine($"Payment URL generated: {!string.IsNullOrEmpty(paymentUrl)}");
+
+            return Ok(new { paymentUrl });
         }
 
-        /// <summary>
-        /// Callback từ VNPay sau khi thanh toán
-        /// </summary>
         [HttpGet("return")]
         [AllowAnonymous]
-        public async Task<IActionResult> VNPayReturn()
+        public async Task<IActionResult> VnPayReturn()
         {
             try
             {
-                // Lấy tất cả query parameters
-                var queryParams = Request.Query.ToDictionary(x => x.Key, x => x.Value.ToString());
-                
-                if (!queryParams.ContainsKey("vnp_SecureHash"))
-                {
-                    return BadRequest("Invalid callback data");
-                }
+                var queryString = HttpContext.Request.QueryString.ToString();
 
-                string vnpSecureHash = queryParams["vnp_SecureHash"];
-
-                // Validate signature
-                bool isValidSignature = _vnPayService.ValidateSignature(queryParams, vnpSecureHash);
-                if (!isValidSignature)
-                {
+                if (!_vnPayService.ValidateSignature(queryString))
                     return BadRequest("Invalid signature");
-                }
 
-                // Lấy thông tin giao dịch
-                string responseCode = queryParams.GetValueOrDefault("vnp_ResponseCode", "");
-                string transactionStatus = queryParams.GetValueOrDefault("vnp_TransactionStatus", "");
-                string txnRef = queryParams.GetValueOrDefault("vnp_TxnRef", "");
-                string transactionNo = queryParams.GetValueOrDefault("vnp_TransactionNo", "");
+                var vnp_ResponseCode = HttpContext.Request.Query["vnp_ResponseCode"].ToString();
+                var vnp_TxnRef = HttpContext.Request.Query["vnp_TxnRef"].ToString();
 
-                if (int.TryParse(txnRef, out int orderId))
+                if (int.TryParse(vnp_TxnRef, out int orderId))
                 {
                     var order = await _db.Orders.FindAsync(orderId);
                     if (order != null)
                     {
-                        // Kiểm tra trạng thái thanh toán
-                        if (responseCode == "00" && transactionStatus == "00")
+                        if (vnp_ResponseCode == "00") // Thanh toán thành công
                         {
-                            // Thanh toán thành công
                             order.Status = "Paid";
                             order.PaymentMethod = "VNPay";
-                            order.PaymentTransactionId = transactionNo;
+                            order.PaymentTransactionId = HttpContext.Request.Query["vnp_TransactionNo"].ToString();
+                            order.PaymentDate = DateTime.UtcNow;
+                            order.PaymentNote = $"VNPay - {HttpContext.Request.Query["vnp_BankCode"]}";
+
                             await _db.SaveChangesAsync();
 
-                            return Ok(new
-                            {
-                                Success = true,
-                                Message = "Thanh toán thành công",
-                                OrderId = orderId,
-                                TransactionId = transactionNo
-                            });
+                            return Redirect($"http://localhost:3000/order-success/{orderId}");
                         }
-                        else
+                        else // Thanh toán thất bại
                         {
-                            // Thanh toán thất bại
-                            order.Status = "Cancelled";
+                            order.Status = "Failed";
+                            order.PaymentMethod = "VNPay";
+                            order.PaymentDate = DateTime.UtcNow;
+                            order.PaymentNote = $"VNPay Error: {vnp_ResponseCode}";
+
                             await _db.SaveChangesAsync();
 
-                            return Ok(new
-                            {
-                                Success = false,
-                                Message = "Thanh toán thất bại",
-                                ResponseCode = responseCode
-                            });
+                            return Redirect($"http://localhost:3000/order-failed/{orderId}?error={vnp_ResponseCode}");
                         }
                     }
                 }
 
-                return BadRequest("Order not found");
+                return BadRequest("Invalid order");
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Error: {ex.Message}");
+                Console.WriteLine($"VNPay return error: {ex.Message}");
+                return BadRequest("Payment processing error");
             }
         }
 
-        /// <summary>
-        /// IPN (Instant Payment Notification) từ VNPay - webhook
-        /// </summary>
         [HttpGet("ipn")]
-        [AllowAnonymous]
-        public async Task<IActionResult> VNPayIPN()
+        [AllowAnonymous] // IPN URL cho VNPay
+        public async Task<IActionResult> VnPayIPN()
         {
             try
             {
-                var queryParams = Request.Query.ToDictionary(x => x.Key, x => x.Value.ToString());
-                
-                if (!queryParams.ContainsKey("vnp_SecureHash"))
-                {
-                    return Ok(new { RspCode = "97", Message = "Invalid signature" });
-                }
+                var queryString = HttpContext.Request.QueryString.ToString();
 
-                string vnpSecureHash = queryParams["vnp_SecureHash"];
-                bool isValidSignature = _vnPayService.ValidateSignature(queryParams, vnpSecureHash);
+                if (!_vnPayService.ValidateSignature(queryString))
+                    return BadRequest("Invalid signature");
 
-                if (!isValidSignature)
-                {
-                    return Ok(new { RspCode = "97", Message = "Invalid signature" });
-                }
+                var vnp_ResponseCode = HttpContext.Request.Query["vnp_ResponseCode"].ToString();
+                var vnp_TxnRef = HttpContext.Request.Query["vnp_TxnRef"].ToString();
 
-                string responseCode = queryParams.GetValueOrDefault("vnp_ResponseCode", "");
-                string txnRef = queryParams.GetValueOrDefault("vnp_TxnRef", "");
-
-                if (int.TryParse(txnRef, out int orderId))
+                if (int.TryParse(vnp_TxnRef, out int orderId))
                 {
                     var order = await _db.Orders.FindAsync(orderId);
-                    if (order != null)
+                    if (order != null && order.Status == "Pending")
                     {
-                        if (responseCode == "00")
+                        if (vnp_ResponseCode == "00")
                         {
-                            if (order.Status != "Paid")
-                            {
-                                order.Status = "Paid";
-                                await _db.SaveChangesAsync();
-                            }
-                            return Ok(new { RspCode = "00", Message = "Confirm Success" });
+                            order.Status = "Paid";
+                            order.PaymentMethod = "VNPay";
+                            order.PaymentTransactionId = HttpContext.Request.Query["vnp_TransactionNo"].ToString();
+                            order.PaymentDate = DateTime.UtcNow;
+
+                            await _db.SaveChangesAsync();
                         }
                         else
                         {
-                            order.Status = "Cancelled";
+                            order.Status = "Failed";
+                            order.PaymentMethod = "VNPay";
+                            order.PaymentDate = DateTime.UtcNow;
+
                             await _db.SaveChangesAsync();
-                            return Ok(new { RspCode = "00", Message = "Confirm Success" });
                         }
                     }
-                    return Ok(new { RspCode = "01", Message = "Order not found" });
                 }
 
-                return Ok(new { RspCode = "02", Message = "Invalid order id" });
+                return Ok(new { RspCode = "00", Message = "Confirm Success" });
             }
             catch (Exception ex)
             {
-                return Ok(new { RspCode = "99", Message = $"Error: {ex.Message}" });
+                Console.WriteLine($"VNPay IPN error: {ex.Message}");
+                return Ok(new { RspCode = "99", Message = "Unknown error" });
+            }
+        }
+
+        [HttpGet("mock-payment")]
+        [AllowAnonymous]
+        public async Task<IActionResult> MockPayment(int orderId, decimal amount)
+        {
+            try
+            {
+                Console.WriteLine($"=== MOCK PAYMENT STARTED ===");
+                Console.WriteLine($"OrderId: {orderId}, Amount: {amount}");
+
+                // Tìm order
+                var order = await _db.Orders.FindAsync(orderId);
+                if (order == null)
+                {
+                    Console.WriteLine("Order not found");
+                    return NotFound("Order not found");
+                }
+
+                Console.WriteLine($"Found order: {order.Id}, Status: {order.Status}");
+
+                // Mock thanh toán thành công
+                // Tạo URL callback giống như VNPay thật
+                var returnUrl = $"/api/VNPay/return?vnp_ResponseCode=00" +
+                               $"&vnp_TxnRef={orderId}" +
+                               $"&vnp_TransactionNo=MOCK{DateTime.Now.Ticks}" +
+                               $"&vnp_Amount={(long)(amount * 100)}" +
+                               $"&vnp_BankCode=NCB" +
+                               $"&vnp_PayDate={DateTime.Now:yyyyMMddHHmmss}" +
+                               $"&vnp_SecureHash=mock_hash";
+
+                var fullReturnUrl = $"http://localhost:5080{returnUrl}";
+
+                Console.WriteLine($"Redirecting to: {fullReturnUrl}");
+
+                // Redirect đến callback URL (giống VNPay thật)
+                return Redirect(fullReturnUrl);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Mock payment error: {ex.Message}");
+                return BadRequest($"Mock payment error: {ex.Message}");
             }
         }
     }
 }
-
-

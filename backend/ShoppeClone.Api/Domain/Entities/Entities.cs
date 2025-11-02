@@ -1,6 +1,10 @@
 namespace ShoppeClone.Api.Domain.Entities
 {
-    public class BaseEntity { public int Id { get; set; } public DateTime CreatedAt { get; set; } = DateTime.UtcNow; }
+    public class BaseEntity
+    {
+        public int Id { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    }
 
     public class User : BaseEntity
     {
@@ -40,9 +44,16 @@ namespace ShoppeClone.Api.Domain.Entities
     {
         public int UserId { get; set; }
         public decimal TotalAmount { get; set; }
-        public string Status { get; set; } = "Pending"; // Pending, Paid, Cancelled
-        public string PaymentMethod { get; set; } = "ZaloPay";
+        public string Status { get; set; } = "Pending"; // Pending, Paid, Cancelled, Completed
+
+        // Payment fields - ĐÃ CÓ ĐỦ
+        public string PaymentMethod { get; set; } = "Cash"; // Đặt mặc định là "Cash"
         public string? PaymentTransactionId { get; set; }
+        public DateTime? PaymentDate { get; set; }
+        public string? PaymentNote { get; set; }
+
+        // Navigation properties
+        public User User { get; set; } = null!;
         public ICollection<OrderItem> Items { get; set; } = new List<OrderItem>();
     }
 

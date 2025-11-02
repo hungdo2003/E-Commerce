@@ -42,6 +42,14 @@ public class CartController : ControllerBase
         if (!TryGetUserId(out var userId))
             return Unauthorized("Invalid or missing user id claim");
 
+        // KIỂM TRA SẢN PHẨM TỒN TẠI VÀ CÒN HÀNG
+        var product = await _db.Products.FindAsync(dto.ProductId);
+        if (product == null)
+            return BadRequest("Sản phẩm không tồn tại");
+
+        if (product.Stock < dto.Quantity)
+            return BadRequest($"Sản phẩm '{product.Name}' chỉ còn {product.Stock} sản phẩm trong kho");
+
         var item = await _db.CartItems
             .FirstOrDefaultAsync(x => x.UserId == userId && x.ProductId == dto.ProductId);
 
@@ -57,11 +65,16 @@ public class CartController : ControllerBase
         }
         else
         {
-            item.Quantity += dto.Quantity;
+            // KIỂM TRA TỔNG SỐ LƯỢNG SAU KHI CỘNG THÊM
+            int newQuantity = item.Quantity + dto.Quantity;
+            if (product.Stock < newQuantity)
+                return BadRequest($"Số lượng vượt quá tồn kho. Chỉ còn {product.Stock} sản phẩm");
+
+            item.Quantity = newQuantity;
         }
 
         await _db.SaveChangesAsync();
-        return Ok();
+        return Ok(new { Message = "Đã thêm vào giỏ hàng" });
     }
 
     [HttpDelete("{productId}")]
