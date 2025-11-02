@@ -1,26 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="24dp"
+    android:background="@color/purple_200"
+    android:gravity="center">
 
-    <TextView
-        android:id="@+id/txtTotal"
+    <!-- Total Amount Card -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tổng tiền: --"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:paddingBottom="12dp" />
+        android:orientation="vertical"
+        android:background="@color/botBubbleBg"
+        android:padding="32dp"
+        android:elevation="8dp"
+        android:gravity="center"
+        android:backgroundTint="@color/botBubbleBg">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/total_payment"
+            android:textColor="@color/purple_500"
+            android:textSize="16sp"
+            android:paddingBottom="8dp" />
+
+        <TextView
+            android:id="@+id/txtTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/amount_placeholder"
+            android:textColor="@color/emerald_600"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:paddingBottom="24dp" />
+
+        <!-- VNPay Badge -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@color/tldrBg"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_vnpay"
+                android:layout_marginEnd="8dp"
+                app:tint="@color/vnpay_blue"
+                android:contentDescription="@string/vnpay_icon_desc" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/vnpay"
+                android:textColor="@color/vnpay_blue"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Payment Button -->
     <Button
         android:id="@+id/btnPay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="💳 Thanh toán VNPay"
-        android:backgroundTint="@color/vnpay_blue"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"
+        android:layout_marginTop="32dp"
+        android:text="@string/pay_now"
+        android:background="@drawable/btn_vnpay_selector"
+        android:textColor="@color/userTextOn"
         android:textSize="16sp"
-        android:padding="16dp" />
+        android:textStyle="bold"
+        android:padding="20dp"
+        android:elevation="4dp" />
+
+    <!-- Security Note -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/secure_transaction"
+        android:textColor="@color/emerald_600"
+        android:textSize="12sp"
+        android:gravity="center" />
+
 </LinearLayout>

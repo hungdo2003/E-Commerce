@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">ShoppeCloneApp</string>
     <string name="product_image">Ảnh sản phẩm</string>
+    <string name="total_payment">Tổng thanh toán</string>
+    <string name="amount_placeholder">--</string>
+    <string name="vnpay">VNPay</string>
+    <string name="pay_now">💳 Thanh toán ngay</string>
+    <string name="secure_transaction">🔒 Giao dịch được bảo mật</string>
+    <string name="vnpay_icon_desc">VNPay Icon</string>
 </resources>
