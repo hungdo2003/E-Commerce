@@ -1,18 +1,21 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using ShoppeClone.Api.Infrastructure;
 using System.Text;
+
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Polly;
+using Polly.Extensions.Http;
+
+using ShoppeClone.Api.Infrastructure;
 using ShoppeClone.Api.Application.AI.Clients;
 using ShoppeClone.Api.Application.AI.Interfaces;
 using ShoppeClone.Api.Application.AI.Services;
 using ShoppeClone.Api.Infrastructure.Repositories;
-
-using FluentValidation;                        
-using FluentValidation.AspNetCore;            
-using Polly;                                   
-using Polly.Extensions.Http;
+using ShoppeClone.Api.Application.Payment;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,27 +23,23 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
-
 // MVC + CORS
 builder.Services.AddControllers();
 builder.Services.AddCors(opt =>
 {
-    opt.AddPolicy("mobile", p => p
-        .AllowAnyHeader()
-        .AllowAnyMethod()
-        .AllowAnyOrigin());
+    opt.AddPolicy("mobile", p => p.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 });
 
-// Auth (JWT)
+// JWT
 var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!);
-builder.Services.AddAuthentication(options =>
+builder.Services.AddAuthentication(o =>
 {
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
-.AddJwtBearer(options =>
+.AddJwtBearer(o =>
 {
-    options.TokenValidationParameters = new TokenValidationParameters
+    o.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
         ValidateAudience = true,
@@ -49,28 +48,15 @@ builder.Services.AddAuthentication(options =>
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(key),
-        ClockSkew = TimeSpan.Zero // tránh lệch giờ khi kiểm tra hết hạn
+        ClockSkew = TimeSpan.Zero
     };
-
-    // (Tùy chọn) Cho phép gửi token trần (không cần "Bearer ")
-    // options.Events = new JwtBearerEvents
-    // {
-    //     OnMessageReceived = ctx =>
-    //     {
-    //         var h = ctx.Request.Headers["Authorization"].FirstOrDefault();
-    //         if (!string.IsNullOrEmpty(h) && !h.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
-    //             ctx.Token = h;
-    //         return Task.CompletedTask;
-    //     }
-    // };
 });
 
-// Swagger + Bearer “Authorize”
+// Swagger + Bearer
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "ShoppeClone API", Version = "v1" });
-
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
@@ -78,63 +64,55 @@ builder.Services.AddSwaggerGen(c =>
         Scheme = "Bearer",
         BearerFormat = "JWT",
         In = ParameterLocation.Header,
-        Description = "Dán token theo dạng: Bearer {token}"
+        Description = "Dán token: Bearer {token}"
     });
-
     c.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
-            },
-            Array.Empty<string>()
-        }
+        { new OpenApiSecurityScheme { Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" } }, Array.Empty<string>() }
     });
 });
 
-
+// (Giữ nguyên các service AI của bạn)
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblyContaining<RagChatRequestValidator>();
-
-// Options
 builder.Services.Configure<GoogleAiOptions>(builder.Configuration.GetSection("GoogleAI"));
-
-// Typed HttpClient (base URL + retry)
 builder.Services.AddHttpClient<GeminiClient>(c =>
 {
     c.BaseAddress = new Uri("https://generativelanguage.googleapis.com/");
     c.Timeout = TimeSpan.FromSeconds(60);
-})
-.AddPolicyHandler(Polly.Extensions.Http.HttpPolicyExtensions
-    .HandleTransientHttpError()
-    .WaitAndRetryAsync(new[]
-    {
-        TimeSpan.FromMilliseconds(200),
-        TimeSpan.FromMilliseconds(500),
-        TimeSpan.FromSeconds(1)
-    }));
-    
+}).AddPolicyHandler(HttpPolicyExtensions.HandleTransientHttpError()
+    .WaitAndRetryAsync(new[] { TimeSpan.FromMilliseconds(200), TimeSpan.FromMilliseconds(500), TimeSpan.FromSeconds(1) }));
+
 builder.Services.AddScoped<IEmbeddingService, EmbeddingService>();
 builder.Services.AddScoped<IKbRepository, KbRepository>();
 builder.Services.AddScoped<IRagService, RagService>();
 
-// VNPay Service
-builder.Services.AddScoped<ShoppeClone.Api.Application.Payment.VNPayService>();
-
+// VNPay
+builder.Services.AddScoped<VNPayService>();
 builder.Services.AddHttpClient();
 
 var app = builder.Build();
+
+// Lấy IP thật qua ngrok/proxy
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto,
+    KnownNetworks = { },
+    KnownProxies = { }
+});
 
 // Swagger
 app.UseSwagger();
 app.UseSwaggerUI();
 
-// Pipeline
 app.UseCors("mobile");
 app.UseAuthentication();
 app.UseAuthorization();
 
+// Route kiểm tra nhanh
+app.MapGet("/health", () => Results.Ok("OK"));
+
 app.MapControllers();
 
+app.Logger.LogInformation("VNPay ReturnUrl: {ReturnUrl}", builder.Configuration["VNPay:ReturnUrl"]);
 app.Run();
