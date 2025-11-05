@@ -52,8 +52,48 @@ public class CheckoutActivity extends AppCompatActivity {
         super.onNewIntent(intent);
         handleVNPayReturn(intent);
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Kiểm tra nếu có kết quả từ WebViewActivity
+        handleWebViewResult();
+    }
+
+    private void handleWebViewResult() {
+        Intent intent = getIntent();
+        if (intent != null && intent.hasExtra("from_webview")) {
+            boolean success = intent.getBooleanExtra("payment_success", false);
+            String orderId = intent.getStringExtra("order_id");
+
+            if (success) {
+                Toast.makeText(this, "✅ Thanh toán thành công! Đơn hàng #" + orderId, Toast.LENGTH_LONG).show();
+
+                // Chuyển về MainActivity
+                Intent resultIntent = new Intent(this, MainActivity.class);
+                resultIntent.putExtra("payment_success", true);
+                if (orderId != null) {
+                    resultIntent.putExtra("order_id", orderId);
+                }
+                resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(resultIntent);
+                finish();
+            } else {
+                Toast.makeText(this, "❌ Thanh toán thất bại hoặc bị hủy", Toast.LENGTH_LONG).show();
+                btnPay.setEnabled(true);
+                btnPay.setText("Thanh toán ngay");
+            }
+
+            // Reset intent để tránh xử lý nhiều lần
+            setIntent(null);
+        }
+    }
 
     private void createOrderAndPay() {
+        // Vô hiệu hóa nút để tránh click nhiều lần
+        btnPay.setEnabled(false);
+        btnPay.setText("Đang xử lý...");
+
         ordersApi.createFromCart().enqueue(new Callback<CreateOrderResponse>() {
             @Override
             public void onResponse(Call<CreateOrderResponse> call, Response<CreateOrderResponse> response) {
@@ -69,6 +109,8 @@ public class CheckoutActivity extends AppCompatActivity {
                     }
 
                     Toast.makeText(CheckoutActivity.this, errorMsg, Toast.LENGTH_LONG).show();
+                    btnPay.setEnabled(true);
+                    btnPay.setText("Thanh toán ngay");
                     return;
                 }
 
@@ -76,6 +118,8 @@ public class CheckoutActivity extends AppCompatActivity {
                     Toast.makeText(CheckoutActivity.this,
                             "⚠️ Không nhận được thông tin đơn hàng",
                             Toast.LENGTH_LONG).show();
+                    btnPay.setEnabled(true);
+                    btnPay.setText("Thanh toán ngay");
                     return;
                 }
 
@@ -91,12 +135,13 @@ public class CheckoutActivity extends AppCompatActivity {
                 Toast.makeText(CheckoutActivity.this,
                         "⚠️ Lỗi mạng khi tạo đơn: " + t.getMessage(),
                         Toast.LENGTH_LONG).show();
+                btnPay.setEnabled(true);
+                btnPay.setText("Thanh toán ngay");
             }
         });
     }
 
     private void requestVNPay(CreateOrderResponse order) {
-        // 🔥 SỬA: Gọi đúng endpoint với orderId trong path
         vnPayApi.createPayment(order.orderId).enqueue(new Callback<VNPayResponse>() {
             @Override
             public void onResponse(Call<VNPayResponse> call, Response<VNPayResponse> response) {
@@ -104,22 +149,27 @@ public class CheckoutActivity extends AppCompatActivity {
                     Toast.makeText(CheckoutActivity.this,
                             "Gọi VNPay thất bại: HTTP " + response.code(),
                             Toast.LENGTH_LONG).show();
+                    btnPay.setEnabled(true);
+                    btnPay.setText("Thanh toán ngay");
                     return;
                 }
 
                 VNPayResponse vnPayResponse = response.body();
 
-                // 🔥 SỬA: Backend trả về paymentUrl trực tiếp, không có success field
-                if (!TextUtils.isEmpty(vnPayResponse.paymentUrl)) {
-                    // THÊM PARAMETER RETURN URL VÀO URL VNPAY
-                    String returnUrl = "shoppeclone://vnpay-return";
-                    String paymentUrlWithCallback = vnPayResponse.paymentUrl + "&custom_return_url=" + Uri.encode(returnUrl);
+                if (vnPayResponse.success && !TextUtils.isEmpty(vnPayResponse.paymentUrl)) {
+                    // Mở trình duyệt với payment URL
+                    openUri(vnPayResponse.paymentUrl);
 
-                    openUri(paymentUrlWithCallback);
+                    // Hiển thị thông báo chờ
+                    Toast.makeText(CheckoutActivity.this,
+                            "Đang chuyển hướng đến VNPay...",
+                            Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(CheckoutActivity.this,
-                            "Lỗi: Không nhận được payment URL",
+                            "Lỗi: " + vnPayResponse.message,
                             Toast.LENGTH_LONG).show();
+                    btnPay.setEnabled(true);
+                    btnPay.setText("Thanh toán ngay");
                 }
             }
 
@@ -128,19 +178,21 @@ public class CheckoutActivity extends AppCompatActivity {
                 Toast.makeText(CheckoutActivity.this,
                         "Lỗi mạng khi gọi VNPay: " + t.getMessage(),
                         Toast.LENGTH_LONG).show();
+                btnPay.setEnabled(true);
+                btnPay.setText("Thanh toán ngay");
             }
         });
     }
 
     private void openUri(String uri) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-        try {
-            startActivity(intent);
-        } catch (ActivityNotFoundException ex) {
-            Toast.makeText(this,
-                    "Không tìm thấy ứng dụng thanh toán hoặc trình duyệt phù hợp.",
-                    Toast.LENGTH_LONG).show();
-        }
+        // Dùng WebView thay vì Browser
+        Intent webViewIntent = new Intent(this, WebViewActivity.class);
+        webViewIntent.putExtra("payment_url", uri);
+        startActivity(webViewIntent);
+
+        // Vô hiệu hóa nút cho đến khi có kết quả
+        btnPay.setEnabled(false);
+        btnPay.setText("Đang xử lý...");
     }
 
     /**
@@ -155,11 +207,32 @@ public class CheckoutActivity extends AppCompatActivity {
             if ("shoppeclone".equals(uri.getScheme()) && "vnpay-return".equals(uri.getHost())) {
                 processPaymentResult(uri);
             }
-            // Xử lý ngrok redirect
+            // Xử lý https deeplink
             else if ("https".equals(uri.getScheme()) &&
                     "moira-subjugular-anna.ngrok-free.dev".equals(uri.getHost()) &&
-                    uri.getPath() != null && uri.getPath().startsWith("/api/VNPay/return")) {
-                processPaymentResult(uri);
+                    uri.getPath() != null && uri.getPath().startsWith("/api/VNPay/deeplink")) {
+
+                // Lấy parameters từ https deeplink
+                boolean success = "true".equals(uri.getQueryParameter("success"));
+                String orderId = uri.getQueryParameter("orderId");
+                String amount = uri.getQueryParameter("amount");
+                String transactionId = uri.getQueryParameter("transactionId");
+
+                if (success) {
+                    Toast.makeText(this, "✅ Thanh toán thành công! Đơn hàng #" + orderId, Toast.LENGTH_LONG).show();
+
+                    Intent resultIntent = new Intent(this, MainActivity.class);
+                    resultIntent.putExtra("payment_success", true);
+                    resultIntent.putExtra("order_id", orderId);
+                    resultIntent.putExtra("amount", amount);
+                    resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    startActivity(resultIntent);
+                    finish();
+                } else {
+                    Toast.makeText(this, "❌ Thanh toán thất bại!", Toast.LENGTH_LONG).show();
+                    btnPay.setEnabled(true);
+                    btnPay.setText("Thanh toán ngay");
+                }
             }
         }
     }
@@ -169,30 +242,79 @@ public class CheckoutActivity extends AppCompatActivity {
      */
     private void processPaymentResult(Uri uri) {
         String responseCode = uri.getQueryParameter("vnp_ResponseCode");
-        String transactionStatus = uri.getQueryParameter("vnp_TransactionStatus");
-        String orderId = uri.getQueryParameter("vnp_TxnRef");
+        String orderInfo = uri.getQueryParameter("vnp_OrderInfo");
+        String transactionNo = uri.getQueryParameter("vnp_TransactionNo");
+        String amount = uri.getQueryParameter("vnp_Amount");
 
-        if ("00".equals(responseCode) && "00".equals(transactionStatus)) {
+        // Extract orderId từ orderInfo hoặc transaction reference
+        String orderId = extractOrderIdFromOrderInfo(orderInfo);
+        if (orderId == null) {
+            orderId = uri.getQueryParameter("vnp_TxnRef");
+        }
+
+        Log.d("VNPay", "Payment result - ResponseCode: " + responseCode + ", OrderId: " + orderId);
+
+        if ("00".equals(responseCode)) {
             // Thanh toán thành công
-            Toast.makeText(this, "✅ Thanh toán thành công! Đơn hàng #" + orderId, Toast.LENGTH_LONG).show();
+            String successMsg = "✅ Thanh toán thành công!";
+            if (orderId != null) {
+                successMsg += " Đơn hàng #" + orderId;
+            }
+            Toast.makeText(this, successMsg, Toast.LENGTH_LONG).show();
 
-            // Chuyển về màn hình chính hoặc hiển thị kết quả
+            // Chuyển về màn hình chính với thông báo thành công
             Intent resultIntent = new Intent(this, MainActivity.class);
             resultIntent.putExtra("payment_success", true);
-            resultIntent.putExtra("order_id", orderId);
+            if (orderId != null) {
+                resultIntent.putExtra("order_id", orderId);
+            }
             resultIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(resultIntent);
             finish();
         } else {
             // Thanh toán thất bại
-            String errorMsg = "Thanh toán thất bại";
-            if (responseCode != null) {
-                errorMsg += " (Mã lỗi: " + responseCode + ")";
-            }
+            String errorMsg = getVNPayErrorDescription(responseCode);
             Toast.makeText(this, "❌ " + errorMsg, Toast.LENGTH_LONG).show();
 
             // Quay lại màn hình thanh toán
             btnPay.setEnabled(true);
+            btnPay.setText("Thanh toán ngay");
+        }
+    }
+
+    /**
+     * Trích xuất orderId từ orderInfo (ví dụ: "Thanh toán đơn hàng #15")
+     */
+    private String extractOrderIdFromOrderInfo(String orderInfo) {
+        if (orderInfo != null && orderInfo.contains("#")) {
+            String[] parts = orderInfo.split("#");
+            if (parts.length > 1) {
+                return parts[1].replaceAll("[^0-9]", "");
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Lấy mô tả lỗi từ response code của VNPay
+     */
+    private String getVNPayErrorDescription(String responseCode) {
+        if (responseCode == null) return "Thanh toán thất bại";
+
+        switch (responseCode) {
+            case "07": return "Giao dịch bị nghi ngờ (gian lận)";
+            case "09": return "Thẻ/Tài khoản chưa đăng ký dịch vụ Internet Banking";
+            case "10": return "Khách hàng xác thực thông tin thẻ/tài khoản không đúng quá 3 lần";
+            case "11": return "Đã hết hạn chờ thanh toán. Xin quý khách thực hiện lại giao dịch";
+            case "12": return "Thẻ/Tài khoản của khách hàng bị khóa";
+            case "13": return "Quý khách nhập sai mật khẩu xác thực giao dịch (OTP)";
+            case "24": return "Khách hàng hủy giao dịch";
+            case "51": return "Tài khoản không đủ số dư để thực hiện giao dịch";
+            case "65": return "Tài khoản đã vượt quá hạn mức giao dịch trong ngày";
+            case "75": return "Ngân hàng thanh toán đang bảo trì";
+            case "79": return "KH nhập sai mật khẩu thanh toán quá số lần quy định";
+            case "99": return "Các lỗi khác";
+            default: return "Thanh toán thất bại (Mã lỗi: " + responseCode + ")";
         }
     }
 }

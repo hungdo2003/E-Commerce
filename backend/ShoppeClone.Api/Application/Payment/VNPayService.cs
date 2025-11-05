@@ -1,152 +1,143 @@
+using Microsoft.Extensions.Options;
 using System.Globalization;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using ShoppeClone.Api.Domain.Entities;
+using ShoppeClone.Api.Infrastructure;
 
 namespace ShoppeClone.Api.Application.Payment
 {
-    public interface IVnPayService
+    public interface IVNPayService
     {
-        string CreatePaymentUrl(Order order, string ipAddress);
-        bool ValidateSignature(string queryString);
+        VNPayPaymentResponse CreatePaymentUrl(VNPayPaymentRequest request, string ipAddress);
+        bool ValidateSignature(Dictionary<string, string> queryParams);
+        PaymentStatus GetPaymentStatus(string responseCode);
     }
 
-    public class VnPayService : IVnPayService
+    public class VNPayService : IVNPayService
     {
-        private readonly IConfiguration _configuration;
+        private readonly VNPayConfiguration _config;
 
-        public VnPayService(IConfiguration configuration)
+        public VNPayService(IOptions<VNPayConfiguration> config)
         {
-            _configuration = configuration;
+            _config = config.Value;
         }
 
-        public string CreatePaymentUrl(Order order, string ipAddress)
+        public VNPayPaymentResponse CreatePaymentUrl(VNPayPaymentRequest request, string ipAddress)
         {
-            // 🔥 TẠM THỜI: Dùng mock URL để test flow
-            var baseUrl = "https://moira-subjugular-anna.ngrok-free.dev";
-            var mockUrl = $"{baseUrl}/api/VNPay/mock-payment?orderId={order.Id}&amount={order.TotalAmount}";
-
-            Console.WriteLine("=== USING MOCK VNPay (NGROK) ===");
-            Console.WriteLine($"Mock URL: {mockUrl}");
-
-            return mockUrl;
-
-            // 🔥 COMMENT CODE VNPay THẬT TẠM THỜI:
-            /*
-            var vnp_Url = _configuration["VNPay:Url"] ?? "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-            var vnp_ReturnUrl = _configuration["VNPay:ReturnUrl"] ?? "https://8f0a51ee28a5.ngrok-free.app/api/VNPay/return";
-            var vnp_TmnCode = _configuration["VNPay:TmnCode"] ?? "KHR6BD4F";
-            var vnp_HashSecret = _configuration["VNPay:HashSecret"] ?? "3ZBR0QKIG4BHRKELEOHBYX7A5IR3DQYW";
-
-            var vnp_Params = new SortedList<string, string>
+            try
             {
-                ["vnp_Version"] = "2.1.0",
-                ["vnp_Command"] = "pay",
-                ["vnp_TmnCode"] = vnp_TmnCode,
-                ["vnp_Amount"] = ((long)(order.TotalAmount * 100)).ToString(),
-                ["vnp_BankCode"] = "",
-                ["vnp_CreateDate"] = DateTime.Now.ToString("yyyyMMddHHmmss"),
-                ["vnp_CurrCode"] = "VND",
-                ["vnp_IpAddr"] = ipAddress,
-                ["vnp_Locale"] = "vn",
-                ["vnp_OrderInfo"] = $"Thanh toan don hang {order.Id}",
-                ["vnp_OrderType"] = "other",
-                ["vnp_ReturnUrl"] = vnp_ReturnUrl,
-                ["vnp_TxnRef"] = order.Id.ToString(),
-                ["vnp_ExpireDate"] = DateTime.Now.AddMinutes(15).ToString("yyyyMMddHHmmss")
+                // Tạo transaction ID
+                string transactionId = DateTime.Now.Ticks.ToString();
+
+                // Tạo các tham số bắt buộc
+                var vnpParams = new SortedList<string, string>
+                {
+                    ["vnp_Version"] = _config.Version,
+                    ["vnp_Command"] = _config.Command,
+                    ["vnp_TmnCode"] = _config.TmnCode,
+                    ["vnp_Amount"] = ((int)(request.Amount * 100)).ToString(),
+                    ["vnp_CreateDate"] = DateTime.Now.ToString("yyyyMMddHHmmss"),
+                    ["vnp_CurrCode"] = _config.CurrCode,
+                    ["vnp_IpAddr"] = ipAddress,
+                    ["vnp_Locale"] = _config.Locale,
+                    ["vnp_OrderInfo"] = WebUtility.UrlEncode(request.OrderDescription),
+                    ["vnp_OrderType"] = "other",
+                    ["vnp_ReturnUrl"] = _config.ReturnUrl,
+                    ["vnp_TxnRef"] = transactionId
+                };
+
+                // Tạo URL
+                var queryString = string.Join("&", vnpParams.Select(kvp =>
+                    $"{WebUtility.UrlEncode(kvp.Key)}={WebUtility.UrlEncode(kvp.Value)}"));
+
+                // Tạo secure hash
+                var signData = $"{queryString}";
+                var secureHash = CreateSHA256Hash(_config.HashSecret + signData);
+
+                var paymentUrl = $"{_config.Url}?{queryString}&vnp_SecureHashType=SHA256&vnp_SecureHash={secureHash}";
+
+                return new VNPayPaymentResponse
+                {
+                    Success = true,
+                    PaymentUrl = paymentUrl,
+                    TransactionId = transactionId,
+                    Message = "Tạo URL thanh toán thành công"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new VNPayPaymentResponse
+                {
+                    Success = false,
+                    Message = $"Lỗi tạo URL thanh toán: {ex.Message}"
+                };
+            }
+        }
+
+        public bool ValidateSignature(Dictionary<string, string> queryParams)
+        {
+            try
+            {
+                // Lấy secure hash từ query params
+                if (!queryParams.TryGetValue("vnp_SecureHash", out var receivedHash))
+                    return false;
+
+                // Tạo lại secure hash để so sánh
+                var vnpParams = queryParams
+                    .Where(kvp => !kvp.Key.Equals("vnp_SecureHash", StringComparison.OrdinalIgnoreCase) &&
+                                 !kvp.Key.Equals("vnp_SecureHashType", StringComparison.OrdinalIgnoreCase))
+                    .OrderBy(kvp => kvp.Key)
+                    .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
+                var signData = string.Join("&", vnpParams.Select(kvp =>
+                    $"{WebUtility.UrlEncode(kvp.Key)}={WebUtility.UrlEncode(kvp.Value)}"));
+
+                var calculatedHash = CreateSHA256Hash(_config.HashSecret + signData);
+
+                return receivedHash.Equals(calculatedHash, StringComparison.OrdinalIgnoreCase);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public PaymentStatus GetPaymentStatus(string responseCode)
+        {
+            return responseCode switch
+            {
+                "00" => PaymentStatus.Success,
+                "07" => PaymentStatus.Failed, // Trừ tiền thành công nhưng GD bị nghi ngờ
+                "09" => PaymentStatus.Failed, // GD không thành công do: Thẻ/Tài khoản của khách hàng chưa đăng ký dịch vụ InternetBanking
+                "10" => PaymentStatus.Failed, // GD không thành công do: Khách hàng xác thực thông tin thẻ/tài khoản không đúng quá 3 lần
+                "11" => PaymentStatus.Failed, // GD không thành công do: Đã hết hạn chờ thanh toán. Xin quý khách vui lòng thực hiện lại GD.
+                "12" => PaymentStatus.Failed, // GD không thành công do: Thẻ/Tài khoản của khách hàng bị khóa.
+                "13" => PaymentStatus.Failed, // GD không thành công do: Quý khách nhập sai mật khẩu xác thực giao dịch (OTP).
+                "24" => PaymentStatus.Failed, // GD không thành công do: Khách hàng hủy GD
+                "51" => PaymentStatus.Failed, // GD không thành công do: Tài khoản của quý khách không đủ số dư để thực hiện GD.
+                "65" => PaymentStatus.Failed, // GD không thành công do: Tài khoản của Quý khách đã vượt quá hạn mức giao dịch trong ngày.
+                "75" => PaymentStatus.Failed, // Ngân hàng thanh toán đang bảo trì.
+                "79" => PaymentStatus.Failed, // KH nhập sai mật khẩu thanh toán quá số lần quy định.
+                "99" => PaymentStatus.Failed, // Các lỗi khác
+                _ => PaymentStatus.Failed
             };
-
-            // Loại bỏ các tham số rỗng
-            vnp_Params = new SortedList<string, string>(vnp_Params
-                .Where(kvp => !string.IsNullOrEmpty(kvp.Value))
-                .ToDictionary(k => k.Key, k => k.Value));
-
-            // Tạo query string để hash (KHÔNG encode)
-            var queryString = string.Join("&", vnp_Params.Select(kvp => $"{kvp.Key}={kvp.Value}"));
-
-            // Tạo chữ ký theo chuẩn VNPay - QUAN TRỌNG
-            var signData = HashSHA512(vnp_HashSecret + queryString);
-
-            // Tạo URL cuối cùng (có encode)
-            var paymentUrl = $"{vnp_Url}?{string.Join("&", vnp_Params.Select(kvp => $"{WebUtility.UrlEncode(kvp.Key)}={WebUtility.UrlEncode(kvp.Value)}"))}&vnp_SecureHash={signData}";
-
-            // DEBUG
-            Console.WriteLine("=== VNPay Debug ===");
-            Console.WriteLine($"TmnCode: {vnp_TmnCode}");
-            Console.WriteLine($"QueryString (for hash): {queryString}");
-            Console.WriteLine($"SignData (before hash): {vnp_HashSecret + queryString}");
-            Console.WriteLine($"SecureHash: {signData}");
-            Console.WriteLine($"Final URL: {paymentUrl}");
-
-            return paymentUrl;
-            */
         }
 
-        // Sử dụng hàm HashSHA512 chuẩn hơn
-        private string HashSHA512(string data)
+        private string CreateSHA256Hash(string input)
         {
-            using (var sha512 = SHA512.Create())
-            {
-                var bytes = Encoding.UTF8.GetBytes(data);
-                var hashBytes = sha512.ComputeHash(bytes);
-                return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
-            }
+            using var sha256 = SHA256.Create();
+            var bytes = Encoding.UTF8.GetBytes(input);
+            var hash = sha256.ComputeHash(bytes);
+            return BitConverter.ToString(hash).Replace("-", "").ToLower();
         }
+    }
 
-        public bool ValidateSignature(string queryString)
-        {
-            // 🔥 TẠM THỜI: Luôn return true cho mock service
-            Console.WriteLine("=== USING MOCK VALIDATION ===");
-            return true;
-
-            /*
-            var vnp_HashSecret = _configuration["VNPay:HashSecret"] ?? "3ZBR0QKIG4BHRKELEOHBYX7A5IR3DQYW";
-
-            var queries = queryString.Trim('?').Split('&');
-            var paramsMap = new SortedList<string, string>();
-
-            foreach (var query in queries)
-            {
-                if (!string.IsNullOrEmpty(query) && !query.StartsWith("vnp_SecureHash"))
-                {
-                    var kv = query.Split('=');
-                    if (kv.Length == 2)
-                    {
-                        paramsMap.Add(kv[0], kv[1]);
-                    }
-                }
-            }
-
-            // Tạo query string để hash (không encode)
-            var signData = string.Join("&", paramsMap.Select(kvp => $"{kvp.Key}={kvp.Value}"));
-            var vnp_SecureHash = HmacSHA512(vnp_HashSecret, signData);
-
-            var receivedHash = queries.FirstOrDefault(x => x.StartsWith("vnp_SecureHash"))?.Split('=')[1];
-
-            Console.WriteLine($"Validate - SignData: {signData}");
-            Console.WriteLine($"Validate - Generated Hash: {vnp_SecureHash}");
-            Console.WriteLine($"Validate - Received Hash: {receivedHash}");
-
-            return vnp_SecureHash.Equals(receivedHash, StringComparison.InvariantCultureIgnoreCase);
-            */
-        }
-
-        private string HmacSHA512(string key, string inputData)
-        {
-            var hash = new StringBuilder();
-            var keyBytes = Encoding.UTF8.GetBytes(key);
-            var inputBytes = Encoding.UTF8.GetBytes(inputData);
-
-            using (var hmac = new HMACSHA512(keyBytes))
-            {
-                var hashValue = hmac.ComputeHash(inputBytes);
-                foreach (var theByte in hashValue)
-                {
-                    hash.Append(theByte.ToString("x2"));
-                }
-            }
-            return hash.ToString();
-        }
+    public enum PaymentStatus
+    {
+        Pending,
+        Success,
+        Failed
     }
 }

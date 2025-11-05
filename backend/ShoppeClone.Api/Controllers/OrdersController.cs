@@ -18,13 +18,9 @@ namespace ShoppeClone.Api.Controllers
         // TẠM THỜI: Method không cần user id
         private bool TryGetUserId(out int uid)
         {
-            // Tạm thời return user id mặc định để test
-            uid = 1; // Hoặc lấy user id đầu tiên từ database
+            // Tạm thời dùng user ID 2 cho testing
+            uid = 2; // User "Khoa Nguyen"
             return true;
-
-            // HOẶC comment toàn bộ method và dùng trực tiếp:
-            // uid = 1;
-            // return true;
         }
 
         [HttpPost("create-from-cart")]

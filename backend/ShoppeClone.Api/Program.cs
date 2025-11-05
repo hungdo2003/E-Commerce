@@ -71,7 +71,7 @@ builder.Services.AddAuthentication(options =>
     // };
 });
 
-// Swagger + Bearer “Authorize”
+// Swagger + Bearer "Authorize"
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -139,8 +139,23 @@ builder.Services.AddCors(opt =>
         ));
 });
 
-// VNPay Service
-builder.Services.AddScoped<IVnPayService, VnPayService>();
+// Cấu hình VNPay
+builder.Services.Configure<VNPayConfiguration>(builder.Configuration.GetSection("VNPay"));
+
+// Đăng ký services VNPay - SỬA PHẦN NÀY
+if (builder.Environment.IsDevelopment())
+{
+    // Development: Dùng Mock service để test
+    builder.Services.AddScoped<IVNPayService, MockVNPayService>();
+    Console.WriteLine("🔧 Using Mock VNPay Service for Development");
+}
+else
+{
+    // Production: Dùng service thật
+    builder.Services.AddScoped<IVNPayService, VNPayService>();
+    Console.WriteLine("🚀 Using Real VNPay Service for Production");
+}
+
 var app = builder.Build();
 
 // Swagger

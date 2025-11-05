@@ -32,22 +32,27 @@
         <activity
             android:name=".ui.CheckoutActivity"
             android:exported="true">
+            <!-- INTENT FILTER 1: Custom Scheme -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- Xử lý custom scheme -->
                 <data android:scheme="shoppeclone" android:host="vnpay-return" />
-                <!-- Xử lý ngrok redirect -->
-                <data android:scheme="https" android:host="moira-subjugular-anna.ngrok-free.dev"
-                    android:pathPrefix="/api/VNPay/return" />
+            </intent-filter>
+
+            <!-- INTENT FILTER 2: HTTPS App Links -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="https"
+                    android:host="moira-subjugular-anna.ngrok-free.dev"
+                    android:pathPrefix="/api/VNPay/deeplink" />
             </intent-filter>
         </activity>
 
         <!-- 🧩 Các activity phụ -->
-        <activity
-            android:name="com.example.shoppeclone.ui.ChatActivity"
-            android:exported="false" />
+        <!-- XÓA ChatActivity vì không tồn tại -->
         <activity
             android:name="com.example.shoppeclone.ui.CartActivity"
             android:exported="false" />
@@ -55,8 +60,9 @@
             android:name="com.example.shoppeclone.ui.RegisterActivity"
             android:exported="false" />
         <activity android:name=".ui.ProductDetailActivity" android:exported="false" />
+        <!-- XÓA ChatTestActivity vì không tồn tại -->
         <activity
-            android:name=".ui.ChatTestActivity"
+            android:name=".ui.WebViewActivity"
             android:exported="false" />
     </application>
 </manifest>
